@@ -1,0 +1,13 @@
+.screen_container{
+    position: relative;
+    width: 600px;
+    height: 400px;
+    margin: 30px auto;
+    background: #000;
+    overflow: hidden;
+}
+.screen_toolbar{
+    width: 600px;
+    margin: 20px auto;
+    text-align: center;
+}
