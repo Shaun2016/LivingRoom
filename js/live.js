@@ -123,6 +123,10 @@
         $('#open_posts').text('收起');
     })
 
+    $('#postsList').on('shown.bs.collapse', function() {
+        $('#postsList').height('420px');
+    })
+
     $('#postsList').on('hide.bs.collapse', function() {
         $('#open_posts').text('展开');
     })
