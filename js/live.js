@@ -124,7 +124,7 @@
     })
 
     $('#postsList').on('shown.bs.collapse', function() {
-        $('#postsList').height('420px');
+        $('#postsList').height('430px');
     })
 
     $('#postsList').on('hide.bs.collapse', function() {
