@@ -81,86 +81,46 @@
         </div>
     </div>
     <div class="container">
-        <div class="screen_container">
-            
-        </div>
-        <div class="screen_toolbar">
-            <div class="form-inline">
-                <input class="form-control" style="width: 70%;" id="screenBulletText" type="text" placeholder="发个弹幕吧"/>
-                <button class="send btn btn-primary">发射 ></button>
-                <button class="clear btn btn-info">关闭弹幕</button>
+        <div class="row">
+            <div class="col-md-7 col-md-offset-1">
+                <div class="screen_container"></div>
+                <div class="screen_toolbar">
+                    <div class="form-inline">
+                        <input class="form-control" style="width: 75%;" id="screenBulletText" type="text" placeholder="发个弹幕吧" maxlength="20"/>
+                        <div style="float: right; width: 25%;">
+                            <button class="send btn btn-primary">发射 ></button>
+                            <button class="clear btn btn-info">关闭弹幕</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--弹幕列表-->
+            <div class="col-md-4">
+                <div class="panel panel-default">
+                    <div class="panel-heading">弹幕列表<a id="open_posts" data-toggle="collapse" href="#postsList" 
+                        aria-expanded="true" aria-controls="postsList" style="float: right; color: #000000">收起</a></div>
+                    <div class="collapse in panel-collapse" id="postsList" style="height: 420px; overflow-y: auto;">
+                        <table class="table scrollTable">
+                            <thead>
+                                <tr>
+                                    <th>时间</th>
+                                    <th>弹幕内容(<span id="post_num">0</span>)</th>
+                                    <th>发送时间</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                        
+                            </tbody>
+                        </table>
+                    </div>
+                        
+                    
+                </div>
             </div>
         </div>
     </div>
 </body>
 <script src="js/jquery-3.3.1.js"></script>
 <script src="js/bootstrap.min.js"></script>
-<script>
-    var barrage = ['2333', '火钳刘明', '文体两开花', '空降成功', '交封不杀', '原谅是一种情怀'];
-    $(function() {// 初始化内容
-        for(item of barrage) {
-            console.log(item);
-            setTimeout("addInterval(createScreenbullet('"+item+"'))", Math.random()*3000);
-        }
-    });  
-    // 弹幕定时器
-    var timers = [];
-    // 控制弹幕显隐变量
-    var isShow = true;
-    // 监听发送按钮
-    $(".send").on("click", function () {
-        var bullet = $("#screenBulletText").val();
-        if (bullet.trim() == '')
-            return
-        // 创建弹幕
-        console.log(bullet);
-        var jqueryDom = createScreenbullet(bullet);
-        // 添加定时任务
-        addInterval(jqueryDom);
-        $("#screenBulletText").val(""); // 清空输入框
-    });
-    // 监听关闭弹幕按钮
-    $(".clear").on("click", function () {
-        if (isShow) {
-            $(".bullet").css("opacity", 0);
-            $(".clear").text('打开弹幕');
-            isShow = false;
-        } else {
-            $(".bullet").css("opacity", 1);
-            $(".clear").text('关闭弹幕');
-            isShow = true;
-        }   
-    });
-    // 新建一个弹幕
-    function createScreenbullet(text) {
-        var jqueryDom = $("<div class='bullet'>" + text + "</div>");
-        var fontColor = "rgb(" + Math.floor(Math.random() * 256) + "," + Math.floor(Math.random() * 256) + "," + Math.floor(Math.random()) + ")";
-        var fontSize = Math.floor((Math.random() + 1) * 24) + "px";
-        var left = $(".screen_container").width() + "px";
-        var top = Math.floor(Math.random() * 400) + "px";
-        top = parseInt(top) > 352 ? "352px" : top;
-        jqueryDom.css({
-            "position": 'absolute',
-            "color": fontColor,
-            "font-size": fontSize,
-            "left": left,
-            "top": top
-        });
-        $(".screen_container").append(jqueryDom);
-        return jqueryDom;
-    }
-    // 为弹幕添加定时任务
-    function addInterval(jqueryDom) {
-        var left = jqueryDom.offset().left - $(".screen_container").offset().left;
-        var timer = setInterval(function () {
-            left--;
-            jqueryDom.css("left", left + "px");
-            if (jqueryDom.offset().left + jqueryDom.width() < $(".screen_container").offset().left) {
-                jqueryDom.remove();
-                clearInterval(timer);
-            }
-        }, 10);
-        timers.push(timer);
-    }
-</script>
+<script src="js/live.js"></script>
 </html>
